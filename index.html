@@ -5,107 +5,84 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>qbsuite</title>
 <style>
+  /* palette shared with qb-td (app/css/td.css): warm off-white, soft charcoal dark */
   :root {
     --bg: #fafaf8;
     --fg: #1a1a1a;
     --muted: #71717a;
     --line: #e4e4e7;
     --link: #1d4ed8;
-    --hover-bg: #f4f4f0;
+    --sel: #efefea;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #131316;
-      --fg: #e7e7ea;
-      --muted: #85858f;
-      --line: #2a2a30;
-      --link: #7aa2f7;
-      --hover-bg: #1b1b20;
+      --bg: #232326;
+      --fg: #e4e4e7;
+      --muted: #a1a1aa;
+      --line: #36363c;
+      --link: #8fb0f5;
+      --sel: #303036;
     }
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     background: var(--bg);
     color: var(--fg);
-    font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
   }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
   .wrap {
     max-width: 620px;
     margin: 0 auto;
     padding: 72px 24px 64px;
   }
-  header h1 {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-  header p {
-    color: var(--muted);
-    margin-top: 4px;
-  }
-  section { margin-top: 44px; }
-  h2 {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    margin-bottom: 8px;
-  }
-  .item {
-    display: block;
-    padding: 14px 12px;
-    margin: 0 -12px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: inherit;
-  }
-  .item + .item { border-top: 1px solid var(--line); }
-  a.item:hover, div.item:hover { background: var(--hover-bg); }
-  .row {
+  header {
     display: flex;
     align-items: baseline;
     gap: 12px;
+    margin-bottom: 32px;
   }
-  .item .name {
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  header p { color: var(--muted); }
+  h2 {
+    font-size: 15px;
     font-weight: 600;
-    color: var(--link);
-    text-decoration: none;
-  }
-  .item .name:hover { text-decoration: underline; }
-  .join {
-    margin-left: auto;
-    font-size: 13px;
-    color: var(--link);
-    text-decoration: none;
-    border: 1px solid var(--line);
-    border-radius: 99px;
-    padding: 2px 10px;
-    white-space: nowrap;
-  }
-  .join:hover { border-color: var(--link); }
-  .item .desc {
     color: var(--muted);
-    font-size: 14.5px;
-    margin-top: 1px;
+    padding-bottom: 8px;
   }
-  .item.soon .name { color: var(--muted); font-weight: 600; }
-  .item.soon .desc::after {
-    content: "soon";
-    margin-left: 8px;
+  section + section { margin-top: 40px; }
+  .list { border-top: 1px solid var(--line); }
+  .item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 12px 10px;
+    margin: 0 -10px;
+    border-bottom: 1px solid var(--line);
+    border-radius: 8px;
+  }
+  .item:hover { background: var(--sel); }
+  .item .body { flex-grow: 1; min-width: 0; }
+  .item .name { font-weight: 600; }
+  .item .desc { color: var(--muted); font-size: 14px; }
+  .join { font-size: 14px; white-space: nowrap; }
+  .soon .name { color: var(--muted); }
+  .pill {
+    font-weight: 400;
     font-size: 12px;
+    color: var(--muted);
     border: 1px solid var(--line);
     border-radius: 99px;
     padding: 1px 8px;
+    margin-left: 4px;
   }
-  footer {
-    margin-top: 56px;
-    padding-top: 20px;
-    border-top: 1px solid var(--line);
-    font-size: 14px;
-    color: var(--muted);
-  }
+  footer { margin-top: 48px; font-size: 14px; }
   footer a { color: var(--muted); }
 </style>
 </head>
@@ -113,58 +90,72 @@
 <div class="wrap">
   <header>
     <h1>qbsuite</h1>
-    <p>quizbowl tools</p>
+    <p>Quizbowl tools</p>
   </header>
 
   <section>
+    <h2>Tournament</h2>
+    <div class="list">
+      <div class="item">
+        <div class="body">
+          <a class="name" href="https://qbsuite.github.io/qb-td/app/">qb-td</a>
+          <div class="desc">Game file collection, packets, live stats, YellowFruit export</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
     <h2>Scorekeeper</h2>
-    <div class="item">
-      <div class="row">
-        <a class="name" href="https://qbsuite.github.io/qb-scorekeeper/app/">qb-scorekeeper</a>
+    <div class="list">
+      <div class="item">
+        <div class="body">
+          <a class="name" href="https://qbsuite.github.io/qb-scorekeeper/app/">qb-scorekeeper</a>
+          <div class="desc">Reads packets, takes buzzes, adjudicates, keeps score</div>
+        </div>
         <a class="join" href="https://qbsuite.github.io/qb-scorekeeper/app/player.html">join room</a>
       </div>
-      <div class="desc">reads packets, takes buzzes, adjudicates, keeps score</div>
-    </div>
-    <div class="item">
-      <div class="row">
-        <a class="name" href="https://consensus-scorekeeper.github.io/">consensus-scorekeeper</a>
+      <div class="item">
+        <div class="body">
+          <a class="name" href="https://consensus-scorekeeper.github.io/">consensus-scorekeeper</a>
+          <div class="desc">Scorekeeper and stats for Consensus tournaments</div>
+        </div>
         <a class="join" href="https://consensus-scorekeeper.github.io/player.html">join room</a>
       </div>
-      <div class="desc">scorekeeper and stats for Consensus tournaments</div>
     </div>
   </section>
 
+  <!-- hidden for now: Misc (qb-semantic-search, qb-audio, qb-mirror, labeled questions)
   <section>
-    <h2>Tournament</h2>
-    <a class="item" href="https://qbsuite.github.io/qb-td/app/">
-      <div class="name">qb-td</div>
-      <div class="desc">game file collection, packets, live stats, YellowFruit export</div>
-    </a>
-  </section>
-
-  <section>
-    <h2>Search</h2>
-    <a class="item" href="https://qbsuite.github.io/qb-semantic-search/app/">
-      <div class="name">qb-semantic-search</div>
-      <div class="desc">semantic search over every qbreader clue, fully in-browser or in the cloud</div>
-    </a>
-  </section>
-
-  <section>
-    <h2>Data</h2>
-    <a class="item" href="https://huggingface.co/datasets/uild42/qb-audio">
-      <div class="name">qb-audio</div>
-      <div class="desc">read-aloud audio for qbreader questions</div>
-    </a>
-    <a class="item" href="https://github.com/qbsuite/qb-mirror">
-      <div class="name">qb-mirror</div>
-      <div class="desc">local SQLite mirror of the qbreader database</div>
-    </a>
-    <div class="item soon">
-      <div class="name">labeled questions</div>
-      <div class="desc">qbreader questions with richer labels</div>
+    <h2>Misc</h2>
+    <div class="list">
+      <div class="item">
+        <div class="body">
+          <a class="name" href="https://qbsuite.github.io/qb-semantic-search/app/">qb-semantic-search</a>
+          <div class="desc">Semantic search over every qbreader clue, fully in-browser or in the cloud</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="body">
+          <a class="name" href="https://huggingface.co/datasets/uild42/qb-audio">qb-audio</a>
+          <div class="desc">Read-aloud audio for qbreader questions</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="body">
+          <a class="name" href="https://github.com/qbsuite/qb-mirror">qb-mirror</a>
+          <div class="desc">Local SQLite mirror of the qbreader database</div>
+        </div>
+      </div>
+      <div class="item soon">
+        <div class="body">
+          <span class="name">labeled questions <span class="pill">soon</span></span>
+          <div class="desc">qbreader questions with richer labels</div>
+        </div>
+      </div>
     </div>
   </section>
+  -->
 
   <footer>
     <a href="https://github.com/qbsuite">github.com/qbsuite</a>
